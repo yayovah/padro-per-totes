@@ -8,8 +8,13 @@ class Ciutat extends Model
 {
     protected $fillable = ['nom','activada','provincia'];
 
-    public function usuariesAdministradores()
-    {
-        return $this->hasMany(Permis::class, 'usuaria'); //Permis relaciona ciutats i usuaries que les administren
+    public function administradores(){
+        return $this->hasMany(Permis::class, 'ciutat'); //Permis relaciona ciutats i usuaries que les administren
+    }
+    public function itineraris(){
+        return $this->hasMany(Itinerari::class, 'ciutat');
+    }
+    public function situacions(){
+        return $this->hasMany(Situacio::class, 'ciutat');
     }
 }

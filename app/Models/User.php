@@ -47,8 +47,11 @@ class User extends Authenticatable
         ];
     }
 
-    public function ciutatsAdministrades()
-    {
-        return $this->hasMany(Permis::class, 'ciutat'); //Permis relaciona ciutats i usuaries que les administren
+    public function ciutatsAdministrades(){
+        return $this->hasMany(Permis::class, 'usuaria'); //Permis relaciona ciutats i usuaries que les administren
+    }
+
+    public function itineraris(){
+        return $this->hasMany(Itinerari::class, 'usuaria'); //Permis relaciona ciutats i usuaries que les administren
     }
 }
