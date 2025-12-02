@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rol'
     ];
 
     /**
@@ -44,5 +45,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function ciutatsAdministrades()
+    {
+        return $this->hasMany(Permis::class, 'ciutat'); //Permis relaciona ciutats i usuaries que les administren
     }
 }
