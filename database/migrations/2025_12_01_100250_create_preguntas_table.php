@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ciutats', function (Blueprint $table) {
+        Schema::create('preguntes', function (Blueprint $table) {
             $table->id();
-            $table->string('nom')->unique();
-            $table->boolean('activada')->default(false);
-            $table->string('provincia')->nullable();
+            $table->string('titol');
+            $table->text('text');
+            $table->string('imatge')->nullable();
             $table->timestamps();
+            
+            //claus foranies
+            $table->foreign('imatge')->references('id')->on('imatges')->onDelete('cascade');
         });
     }
 
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ciutats');
+        Schema::dropIfExists('preguntes');
     }
 };

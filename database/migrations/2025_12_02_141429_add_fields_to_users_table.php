@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ciutats', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom')->unique();
-            $table->boolean('activada')->default(false);
-            $table->string('provincia')->nullable();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('activada')->default('true');
+            $table->enum('rol', ['user', 'admin', 'superadmin'])->default('user');
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ciutats');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['rol']);
+        });
     }
 };
