@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Itinerari;
 use Illuminate\Http\Request;
 
 class ItinerariController extends Controller
@@ -11,7 +12,7 @@ class ItinerariController extends Controller
      */
     public function index()
     {
-        //
+        return Itinerari::all();
     }
 
     /**
@@ -19,7 +20,11 @@ class ItinerariController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'activada' => 'required',
+        ]);
+        return Itinerari::create($request->all());
     }
 
     /**
@@ -27,7 +32,7 @@ class ItinerariController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Itinerari::find($id);
     }
 
     /**
@@ -35,7 +40,9 @@ class ItinerariController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $itinerari = Itinerari::find($id);
+        $itinerari->update($itinerari->all());
+        return $itinerari;
     }
 
     /**
@@ -43,6 +50,6 @@ class ItinerariController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Itinerari::destroy($id);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Imatge;
 use Illuminate\Http\Request;
 
 class ImatgeController extends Controller
@@ -11,7 +12,7 @@ class ImatgeController extends Controller
      */
     public function index()
     {
-        //
+        return Imatge::all();
     }
 
     /**
@@ -19,7 +20,11 @@ class ImatgeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'activada' => 'required',
+        ]);
+        return Imatge::create($request->all());
     }
 
     /**
@@ -27,7 +32,7 @@ class ImatgeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Imatge::find($id);
     }
 
     /**
@@ -35,7 +40,9 @@ class ImatgeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $imatge = Imatge::find($id);
+        $imatge->update($imatge->all());
+        return $imatge;
     }
 
     /**
@@ -43,6 +50,6 @@ class ImatgeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Imatge::destroy($id);
     }
 }

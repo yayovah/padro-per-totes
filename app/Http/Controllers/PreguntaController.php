@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pregunta;
 use Illuminate\Http\Request;
 
 class PreguntaController extends Controller
@@ -11,7 +12,7 @@ class PreguntaController extends Controller
      */
     public function index()
     {
-        //
+        return Pregunta::all();
     }
 
     /**
@@ -19,7 +20,11 @@ class PreguntaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'activada' => 'required',
+        ]);
+        return Pregunta::create($request->all());
     }
 
     /**
@@ -27,7 +32,7 @@ class PreguntaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Pregunta::find($id);
     }
 
     /**
@@ -35,7 +40,9 @@ class PreguntaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $pregunta = Pregunta::find($id);
+        $pregunta->update($pregunta->all());
+        return $pregunta;
     }
 
     /**
@@ -43,6 +50,6 @@ class PreguntaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Pregunta::destroy($id);
     }
 }

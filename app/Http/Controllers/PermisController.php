@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permis;
 use Illuminate\Http\Request;
 
 class PermisController extends Controller
@@ -11,7 +12,7 @@ class PermisController extends Controller
      */
     public function index()
     {
-        //
+        return Permis::all();
     }
 
     /**
@@ -19,7 +20,11 @@ class PermisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'activada' => 'required',
+        ]);
+        return Permis::create($request->all());
     }
 
     /**
@@ -27,7 +32,7 @@ class PermisController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Permis::find($id);
     }
 
     /**
@@ -35,7 +40,9 @@ class PermisController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $permis = Permis::find($id);
+        $permis->update($permis->all());
+        return $permis;
     }
 
     /**
@@ -43,6 +50,6 @@ class PermisController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Permis::destroy($id);
     }
 }

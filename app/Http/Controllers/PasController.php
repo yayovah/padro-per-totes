@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pas;
 use Illuminate\Http\Request;
 
 class PasController extends Controller
@@ -11,7 +12,7 @@ class PasController extends Controller
      */
     public function index()
     {
-        //
+        return Pas::all();
     }
 
     /**
@@ -19,7 +20,11 @@ class PasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'activada' => 'required',
+        ]);
+        return Pas::create($request->all());
     }
 
     /**
@@ -27,7 +32,7 @@ class PasController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Pas::find($id);
     }
 
     /**
@@ -35,7 +40,9 @@ class PasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $pas = Pas::find($id);
+        $pas->update($pas->all());
+        return $pas;
     }
 
     /**
@@ -43,6 +50,6 @@ class PasController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Pas::destroy($id);
     }
 }

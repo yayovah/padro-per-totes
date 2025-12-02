@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Situacio;
 use Illuminate\Http\Request;
 
 class SituacioController extends Controller
@@ -11,7 +12,7 @@ class SituacioController extends Controller
      */
     public function index()
     {
-        //
+        return Situacio::all();
     }
 
     /**
@@ -19,7 +20,11 @@ class SituacioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'activada' => 'required',
+        ]);
+        return Situacio::create($request->all());
     }
 
     /**
@@ -27,7 +32,7 @@ class SituacioController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Situacio::find($id);
     }
 
     /**
@@ -35,7 +40,9 @@ class SituacioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $situacio = Situacio::find($id);
+        $situacio->update($situacio->all());
+        return $situacio;
     }
 
     /**
@@ -43,6 +50,6 @@ class SituacioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Situacio::destroy($id);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Resposta;
 use Illuminate\Http\Request;
 
 class RespostaController extends Controller
@@ -11,7 +12,7 @@ class RespostaController extends Controller
      */
     public function index()
     {
-        //
+        return Resposta::all();
     }
 
     /**
@@ -19,7 +20,11 @@ class RespostaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'activada' => 'required',
+        ]);
+        return Resposta::create($request->all());
     }
 
     /**
@@ -27,7 +32,7 @@ class RespostaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Resposta::find($id);
     }
 
     /**
@@ -35,7 +40,9 @@ class RespostaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $resposta = Resposta::find($id);
+        $resposta->update($resposta->all());
+        return $resposta;
     }
 
     /**
@@ -43,6 +50,6 @@ class RespostaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Resposta::destroy($id);
     }
 }
