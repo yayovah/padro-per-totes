@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('situacios', function (Blueprint $table) {
             $table->id();
-            $table->string('pregunta');
-            $table->string('resposta');
-            $table->string('ciutat');
-            $table->string('seguent_pregunta');
+            $table->unsignedBigInteger('pregunta');
+            $table->unsignedBigInteger('resposta');
+            $table->unsignedBigInteger('ciutat');
+            $table->unsignedBigInteger('seguent_pregunta');
             $table->integer('posicio')->nullable();
             $table->timestamps();
 
             //Claus foranies
-            $table->foreign('itinerari')->references('id')->on('itineraris')->onDelete('cascade');
             $table->foreign('pregunta')->references('id')->on('preguntes')->onDelete('cascade');
             $table->foreign('resposta')->references('id')->on('respostes')->onDelete('cascade');
             $table->foreign('ciutat')->references('id')->on('ciutats')->onDelete('cascade');

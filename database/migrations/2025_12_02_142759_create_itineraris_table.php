@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('itineraris', function (Blueprint $table) {
             $table->id();
-            $table->string('ciutat');
-            $table->string('usuaria')->nullable();
+            $table->unsignedBigInteger('ciutat');
+            $table->unsignedBigInteger('usuaria')->nullable();
             $table->timestamps();
 
             //Claus foranies

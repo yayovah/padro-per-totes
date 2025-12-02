@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('permisos', function (Blueprint $table) {
             $table->id();
-            $table->string('usuaria');
-            $table->string('ciutat');
+            $table->unsignedBigInteger('usuaria');
+            $table->unsignedBigInteger('ciutat');
             $table->timestamps();
 
             //Claus foranies

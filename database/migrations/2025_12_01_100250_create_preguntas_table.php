@@ -15,11 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('titol');
             $table->text('text');
-            $table->string('imatge')->nullable();
             $table->timestamps();
-            
-            //claus foranies
-            $table->foreign('imatge')->references('id')->on('imatges')->onDelete('cascade');
         });
     }
 

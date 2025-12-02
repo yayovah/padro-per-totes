@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('pasos', function (Blueprint $table) {
             $table->id();
-            $table->string('itinerari');
-            $table->string('pregunta');
-            $table->string('resposta');
+            $table->unsignedBigInteger('itinerari');
+            $table->unsignedBigInteger('pregunta');
+            $table->unsignedBigInteger('resposta');
             $table->timestamps();
 
             //Claus foranies
