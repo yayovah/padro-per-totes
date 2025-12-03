@@ -43,9 +43,8 @@ class CiutatController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //$this->authorize('update', $job);
         $ciutat = Ciutat::find($id);
-        $ciutat->update($ciutat->all());
+        $ciutat->update($request->all());
         return $ciutat;
     }
 
