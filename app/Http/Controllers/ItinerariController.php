@@ -21,8 +21,8 @@ class ItinerariController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required',
-            'activada' => 'required',
+            'ciutat' => 'required',
+            'usuaria' => 'required',
         ]);
         return Itinerari::create($request->all());
     }

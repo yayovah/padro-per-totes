@@ -21,8 +21,7 @@ class RespostaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required',
-            'activada' => 'required',
+            'text' => 'required',
         ]);
         return Resposta::create($request->all());
     }

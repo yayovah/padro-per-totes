@@ -21,8 +21,8 @@ class PermisController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required',
-            'activada' => 'required',
+            'usuaria' => 'required',
+            'ciutat' => 'required',
         ]);
         return Permis::create($request->all());
     }

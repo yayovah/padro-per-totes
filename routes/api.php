@@ -18,10 +18,9 @@ PUBLIC ROUTES
 Rutes públiques, a les que es pot accedir sense requisits prèvis
 */
 
-/*
-    USUARIS
-*/
+//Users
 Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
 
 //Ciutats
 Route::get('/ciutats', [CiutatController::class, 'index']);
@@ -57,13 +56,14 @@ Rutes amb accés reservat a usuaries autenticades
 Route::group(['middleware' => ['auth:sanctum']], function () {
     //Itineraris
     Route::delete('/itineraris/{id}', [ItinerariController::class, 'destroy']);
+    Route::post('logout', [AuthController::class, 'logout']);
 });
 
 /* ---------------------------------------------------------------------
 PROTECTED ROUTES BY USER ROL
 Rutes amb accés reservat segons el rol
 */
-Route::middleware(['auth:sanctum', RolRequest::class.'admin'])->group(function () {
+Route::middleware(['auth:sanctum', RolRequest::class.':admin'])->group(function () {
     //Preguntes
     Route::post('/preguntes', [PreguntaController::class, 'store']);
     Route::put('/preguntes/{id}', [PreguntaController::class, 'update']);

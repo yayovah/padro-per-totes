@@ -21,8 +21,9 @@ class PasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required',
-            'activada' => 'required',
+            'itinerari' => 'required',
+            'pregunta' => 'required',
+            'resposta' => 'required',
         ]);
         return Pas::create($request->all());
     }

@@ -21,8 +21,8 @@ class PreguntaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required',
-            'activada' => 'required',
+            'titol' => 'required',
+            'text' => 'required',
         ]);
         return Pregunta::create($request->all());
     }

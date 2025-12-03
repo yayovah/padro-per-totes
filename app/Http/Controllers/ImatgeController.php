@@ -22,7 +22,7 @@ class ImatgeController extends Controller
     {
         $request->validate([
             'nom' => 'required',
-            'activada' => 'required',
+            'path' => 'required',
         ]);
         return Imatge::create($request->all());
     }

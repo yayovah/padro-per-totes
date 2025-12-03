@@ -21,8 +21,10 @@ class SituacioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required',
-            'activada' => 'required',
+            'pregunta' => 'required',
+            'resposta' => 'required',
+            'seguent_pregunta' => 'required',
+            'ciutat' => 'required',
         ]);
         return Situacio::create($request->all());
     }
