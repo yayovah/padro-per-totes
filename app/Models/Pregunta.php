@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pregunta extends Model
 {
     protected $table = 'preguntes';
-    protected $fillable = ['text','imatge'];
+    protected $fillable = ['titol','text','imatge'];
 
     public function passos(){
         return $this->hasMany(Pas::class, 'pregunta');

@@ -3,16 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Situacio;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 
 class SituacioController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Situacio::all();
+        //Filtrem les situacions que es poden retornar a un administrador en funció dels seus permisos
+        $user = auth()->user(); //Agafem l'usuari que fa la sol·licitud
+        $ciutatsAdmin = $user->ciutatsAdministrades->pluck('ciutat')->toArray(); //Agafem la columna de ciutats en que té permis l'usuari
+        return Situacio::whereIn('ciutat', $ciutatsAdmin)->get(); //Seleccionem i retornem les situacions on l'usuari té permis
+        //return response()->json($situacions); //retornem només les cituacions corresponents a les ciutats amb permís de l'usuari
     }
 
     /**
@@ -43,7 +51,8 @@ class SituacioController extends Controller
     public function update(Request $request, string $id)
     {
         $situacio = Situacio::find($id);
-        $situacio->update($situacio->all());
+        $this->authorize('update', $situacio);
+        $situacio->update($request->all());
         return $situacio;
     }
 

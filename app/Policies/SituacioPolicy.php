@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\situacio;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Log;
 
 class SituacioPolicy
 {
@@ -37,7 +38,11 @@ class SituacioPolicy
      */
     public function update(User $user, situacio $situacio): bool
     {
-        return false;
+        $ciutat=$situacio['ciutat'];
+        Log::channel('dev')->info("Log a la policy - ciutat {$ciutat} - user {$user->id}");
+        //L'admin només podrà crear situacions per ciutats on tingui permís
+        $ciutatsAdmin = auth()->user()->ciutatsAdministrades->pluck('ciutat')->toArray(); //Agafem la columna de ciutats en que té permis l'usuari
+        return in_array($ciutat,$ciutatsAdmin);
     }
 
     /**
@@ -63,4 +68,14 @@ class SituacioPolicy
     {
         return false;
     }
+
+    public function crearSegonsCiutat(User $user, $ciutat): bool
+    {
+        Log::channel('dev')->info("ciutat: {$ciutat}");
+        //L'admin només podrà crear situacions per ciutats on tingui permís
+        if($ciutat){ return true; }
+        $ciutatsAdmin = auth()->user()->ciutatsAdministrades->pluck('ciutat')->toArray(); //Agafem la columna de ciutats en que té permis l'usuari
+        return in_array($ciutat,$ciutatsAdmin);
+    }
+
 }
