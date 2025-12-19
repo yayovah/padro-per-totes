@@ -25,13 +25,14 @@ Route::post('login', [AuthController::class, 'login']);
 //Ciutats
 Route::get('/ciutats', [CiutatController::class, 'index']);
 Route::get('/ciutats/{id}', [CiutatController::class, 'show']);
+Route::get('/ciutats/{id}/admins', [CiutatController::class, 'indexAdmins']);
 
 //Preguntes
-Route::get('/preguntes', [PreguntaController::class, 'index']);
 Route::get('/preguntes/{id}', [PreguntaController::class, 'show']);
+Route::get('/preguntes/ciutat/{id}/primera', [PreguntaController::class, 'showPrimeraDeCiutat']);
+Route::get('/preguntes/ciutat/{id}', [PreguntaController::class, 'showDeCiutat']);
 
 //Respostes
-Route::get('/respostes', [RespostaController::class, 'index']);
 Route::get('/respostes/{id}', [RespostaController::class, 'show']);
 
 //Itineraris
@@ -47,6 +48,7 @@ Route::delete('/passos/{id}', [pasController::class, 'destroy']);
 
 //Situacions
 Route::get('/situacions/{id}', [SituacioController::class, 'show']);
+Route::get('/situacions/ciutat/{id}/primera', [SituacioController::class, 'showPrimeraDeCiutat']);
 
 /* ---------------------------------------------------------------------
 PROTECTED ROUTES
@@ -65,7 +67,7 @@ Rutes amb accés reservat segons el rol
 
 /*          ADMIN           */
 
-Route::middleware(['auth:sanctum', RolRequest::class.':admin'])->group(function () {
+Route::middleware(['auth:sanctum', RolRequest::class . ':admin'])->group(function () {
     //Ciutats
     Route::get('/ciutatsAdministrades', [CiutatController::class, 'indexAdministrades']);
 
@@ -73,7 +75,7 @@ Route::middleware(['auth:sanctum', RolRequest::class.':admin'])->group(function 
     Route::post('/preguntes', [PreguntaController::class, 'store']);
     Route::put('/preguntes/{id}', [PreguntaController::class, 'update']);
     Route::delete('/preguntes/{id}', [PreguntaController::class, 'destroy']);
-    
+
     //Respostes
     Route::post('/respostes', [RespostaController::class, 'store']);
     Route::put('/respostes/{id}', [RespostaController::class, 'update']);
@@ -87,11 +89,12 @@ Route::middleware(['auth:sanctum', RolRequest::class.':admin'])->group(function 
     Route::post('/situacions', [SituacioController::class, 'store']);
     Route::put('/situacions/{id}', [SituacioController::class, 'update']);
     Route::delete('/situacions/{id}', [SituacioController::class, 'destroy']);
+    Route::get('/situacions/ciutat/{id}', [SituacioController::class, 'showDeCiutat']);
 });
 
 /*          SUPERADMIN           */
 
-Route::middleware(['auth:sanctum', RolRequest::class.':superadmin'])->group(function () {
+Route::middleware(['auth:sanctum', RolRequest::class . ':superadmin'])->group(function () {
     //Ciutats
     Route::post('/ciutats', [CiutatController::class, 'store']);
     Route::put('/ciutats/{id}', [CiutatController::class, 'update']);
@@ -99,18 +102,22 @@ Route::middleware(['auth:sanctum', RolRequest::class.':superadmin'])->group(func
 
     //Canviar Rol
     Route::post('/canviaRol', [AuthController::class, 'userRol']);
-    
+
     //Administradores (Permisos)
     Route::resource('/permisos', PermisController::class);
+
+    //Preguntes
+    Route::get('/preguntes', [PreguntaController::class, 'index']);
+
+    //Respostes
+    Route::get('/respostes', [RespostaController::class, 'index']);
 });
 
 /* ---------------------------------------------------------------------
 GUEST ROUTES
 Les rutes que els usuaries autenticades no han de poder executar, com login o registre
 */
-Route::group(['middleware' => ['guest']], function(){
-
-});
+Route::group(['middleware' => ['guest']], function () {});
 
 //Sanctum default
 Route::get('/user', function (Request $request) {

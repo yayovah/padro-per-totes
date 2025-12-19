@@ -24,6 +24,7 @@ class ItinerariController extends Controller
             'ciutat' => 'required',
             'usuaria' => 'required',
         ]);
+        //Es crea un nou itinerari
         return Itinerari::create($request->all());
     }
 
@@ -52,4 +53,5 @@ class ItinerariController extends Controller
     {
         return Itinerari::destroy($id);
     }
+
 }

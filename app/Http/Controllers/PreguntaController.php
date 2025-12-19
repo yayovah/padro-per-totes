@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pregunta;
+use App\Models\Situacio;
 use Illuminate\Http\Request;
 
 class PreguntaController extends Controller
@@ -34,6 +35,32 @@ class PreguntaController extends Controller
     {
         return Pregunta::find($id);
     }
+    /**
+    * Display the first resource with a determinated city ID
+    */
+    public function showDeCiutat(string $ciutat_id){
+        //Seleccionem totes les sitaucions referents a la ciutat
+        $situacions = Situacio::where('ciutat', $ciutat_id)->orderBy('created_at', 'asc')->get();
+        //Es genera un array amb les preguntes de la ciutat, només un cop cada pregunta
+        $preguntes = [];
+        foreach($situacions as $situacio){
+            $pregunta = Pregunta::find($situacio['pregunta']);
+            if(!in_array($pregunta, $preguntes)){
+                $preguntes[] = $pregunta;   
+            }
+        }
+        return $preguntes;
+    }
+    /**
+    * Display the first resource with a determinated city ID
+    */
+
+    public function showPrimeraDeCiutat(string $ciutat_id){
+        $primeraSituacio = Situacio::where('ciutat', $ciutat_id)->orderBy('created_at', 'asc')->first();
+        return Pregunta::find($primeraSituacio['pregunta']);        
+        //return $primeraSituacio;
+    }
+
 
     /**
      * Update the specified resource in storage.

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Situacio;
 use App\Models\User;
+use App\Models\Ciutat;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -30,8 +31,6 @@ class SituacioController extends Controller
     {
         $request->validate([
             'pregunta' => 'required',
-            'resposta' => 'required',
-            'seguent_pregunta' => 'required',
             'ciutat' => 'required',
         ]);
         return Situacio::create($request->all());
@@ -43,6 +42,20 @@ class SituacioController extends Controller
     public function show(string $id)
     {
         return Situacio::find($id);
+    }
+    /**
+    * Display the first resource with a determinated city ID
+    */
+    public function showDeCiutat(string $ciutat_id){
+        $Situacions = Situacio::where('ciutat', $ciutat_id)->orderBy('created_at', 'asc')->get();
+        return $Situacions;
+    }
+    /**
+    * Display the first resource with a determinated city ID
+    */
+    public function showPrimeraDeCiutat(string $ciutat_id){
+        $primeraSituacio = Situacio::where('ciutat', $ciutat_id)->orderBy('created_at', 'asc')->first();
+        return $primeraSituacio;
     }
 
     /**
