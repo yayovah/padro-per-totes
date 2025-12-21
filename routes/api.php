@@ -69,7 +69,7 @@ Rutes amb accés reservat segons el rol
 
 Route::middleware(['auth:sanctum', RolRequest::class . ':admin'])->group(function () {
     //Ciutats
-    Route::get('/ciutatsAdministrades', [CiutatController::class, 'indexAdministrades']);
+    Route::get('/ciutats/administrades/{id}', [CiutatController::class, 'indexAdministrades']);
 
     //Preguntes
     Route::post('/preguntes', [PreguntaController::class, 'store']);
