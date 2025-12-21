@@ -24,7 +24,11 @@ class PermisController extends Controller
             'usuaria' => 'required',
             'ciutat' => 'required',
         ]);
-        return Permis::create($request->all());
+        $permis = Permis::firstOrCreate([
+            'usuaria' => $request->usuaria,
+            'ciutat' => $request->ciutat
+        ]);
+        return response()->json($permis);
     }
 
     /**

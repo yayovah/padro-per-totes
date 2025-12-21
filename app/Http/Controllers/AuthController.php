@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(Request $request):Response {
+    public function register(Request $request): Response
+    {
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
@@ -30,9 +31,10 @@ class AuthController extends Controller
         ];
 
         return response($response, 201);
-    }    
+    }
 
-    public function login(Request $request): Response {
+    public function login(Request $request): Response
+    {
         $fields = $request->validate([
             'email' => 'required|string',
             'password' => 'required|string',
@@ -40,7 +42,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $fields['email'])->first();
 
-        if(!$user || !Hash::check($fields['password'], $user->password)){
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
                 'message' => 'Bad creds'
             ], 401);
@@ -54,30 +56,37 @@ class AuthController extends Controller
         ];
 
         return response($response, 201);
-
     }
-    
-    public function logout(Request $request) {
+
+    public function logout(Request $request)
+    {
         auth()->user()->tokens()->delete();
 
         return [
             'message' => 'Logged out'
-        ]; 
+        ];
     }
 
-    public function userRol(Request $request) {
-        if(in_array($request['rol'],['user','admin','superadmin'])){
+    public function userRol(Request $request)
+    {
+        if (in_array($request['rol'], ['user', 'admin', 'superadmin'])) {
             $usuari = User::find($request['id']);
-            if($usuari){
+            if ($usuari) {
                 $usuari->update($request->all());
                 return $usuari;
+            } else {
+                return ['message' => 'No existeix l\'usuari'];
             }
-            else{
-                return ['message' => 'No existeix l\'usuari']; 
-            }
+        } else {
+            return ['message' => 'Rol no vàlid'];
         }
-        else{
-            return ['message' => 'Rol no vàlid']; 
-        }
+    }
+
+    /**
+     * Display a listing of the ciutat's administrators
+     */
+    public function indexByRol(string $rol)
+    {
+        return User::where('rol', $rol)->get();
     }
 }

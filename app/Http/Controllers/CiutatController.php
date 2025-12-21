@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ciutat;
 use App\Models\User;
+use App\Models\Permis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -44,6 +45,12 @@ class CiutatController extends Controller
     }
 
 
+    public function deleteAdmin(string $ciutatId, string $adminId)
+    {
+        return Permis::where('usuaria', $adminId)->where('ciutat', $ciutatId)->delete();
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */
@@ -51,7 +58,6 @@ class CiutatController extends Controller
     {
         $request->validate([
             'nom' => 'required',
-            'activada' => 'required',
         ]);
         return Ciutat::create($request->all());
     }

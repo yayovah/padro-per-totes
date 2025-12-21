@@ -25,7 +25,7 @@ Route::post('login', [AuthController::class, 'login']);
 //Ciutats
 Route::get('/ciutats', [CiutatController::class, 'index']);
 Route::get('/ciutats/{id}', [CiutatController::class, 'show']);
-Route::get('/ciutats/{id}/admins', [CiutatController::class, 'indexAdmins']);
+
 
 //Preguntes
 Route::get('/preguntes/{id}', [PreguntaController::class, 'show']);
@@ -95,10 +95,16 @@ Route::middleware(['auth:sanctum', RolRequest::class . ':admin'])->group(functio
 /*          SUPERADMIN           */
 
 Route::middleware(['auth:sanctum', RolRequest::class . ':superadmin'])->group(function () {
+    //Usuaries
+    Route::get('/users/{rol}', [AuthController::class, 'indexByRol']);
+
+
     //Ciutats
-    Route::post('/ciutats', [CiutatController::class, 'store']);
     Route::put('/ciutats/{id}', [CiutatController::class, 'update']);
+    Route::post('/ciutats', [CiutatController::class, 'store']);
     Route::delete('/ciutats/{id}', [CiutatController::class, 'destroy']);
+    Route::get('/ciutats/{id}/admins', [CiutatController::class, 'indexAdmins']);
+    Route::delete('ciutats/ciutat/{ciutatId}/admin/{adminId}', [CiutatController::class, 'deleteAdmin']);
 
     //Canviar Rol
     Route::post('/canviaRol', [AuthController::class, 'userRol']);
