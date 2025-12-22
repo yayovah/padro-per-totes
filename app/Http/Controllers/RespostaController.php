@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resposta;
+use App\Models\Situacio;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Array_;
 
 class RespostaController extends Controller
 {
@@ -24,6 +26,35 @@ class RespostaController extends Controller
             'text' => 'required',
         ]);
         return Resposta::create($request->all());
+    }
+
+    public function storeByPregunta(Request $request, $preguntaId)
+    {
+        //Crear la resposta
+        $resposta = Resposta::create($request->all());
+
+        $situacio = Situacio::where('pregunta', $preguntaId)->first;
+        $ciutatId = $situacio->ciutat;
+        if ($situacio->pregunta == null) {
+            $situacio->update([
+                'resposta' => $resposta->id
+            ]);
+        } else {
+            //Crea una situació si no exitia la parella pregunta/resposta
+            Situacio::firstOrCreate([
+                'resposta' => $resposta->id,
+                'pregunta' => $preguntaId,
+                'ciutat' => $ciutatId
+            ]);
+        }
+
+        return response()->json($resposta);
+    }
+
+    public function indexByPregunta($preguntaId)
+    {
+        $respostes = Situacio::where('pregunta', $preguntaId)->with('resposta')->get()->pluck('resposta');
+        return Resposta::whereIn('id', $respostes);
     }
 
     /**

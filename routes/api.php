@@ -82,6 +82,8 @@ Route::middleware(['auth:sanctum', RolRequest::class . ':admin'])->group(functio
     Route::post('/respostes', [RespostaController::class, 'store']);
     Route::put('/respostes/{id}', [RespostaController::class, 'update']);
     Route::delete('/respostes/{id}', [RespostaController::class, 'destroy']);
+    Route::post('/respostes/pregunta/{preguntaId}', [RespostaController::class, 'storeByPregunta']);
+    Route::get('/respostes/ciutat/{ciutatId}', [RespostaController::class, 'indexBypregunta']);
 
     //Itineraris
     Route::get('/itineraris', [ItinerariController::class, 'index']);
