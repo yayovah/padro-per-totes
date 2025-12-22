@@ -33,7 +33,7 @@ class RespostaController extends Controller
         //Crear la resposta
         $resposta = Resposta::create($request->all());
 
-        $situacio = Situacio::where('pregunta', $preguntaId)->first;
+        $situacio = Situacio::where('pregunta', $preguntaId)->first();
         $ciutatId = $situacio->ciutat;
         if ($situacio->pregunta == null) {
             $situacio->update([
@@ -41,14 +41,14 @@ class RespostaController extends Controller
             ]);
         } else {
             //Crea una situació si no exitia la parella pregunta/resposta
-            Situacio::firstOrCreate([
+            $situacio = Situacio::firstOrCreate([
                 'resposta' => $resposta->id,
                 'pregunta' => $preguntaId,
                 'ciutat' => $ciutatId
             ]);
         }
 
-        return response()->json($resposta);
+        return response()->json(['resposta' => $resposta, 'situacio' => $situacio]);
     }
 
     public function indexByPregunta($preguntaId)

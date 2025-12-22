@@ -36,6 +36,12 @@ class SituacioController extends Controller
         return Situacio::create($request->all());
     }
 
+
+    public function indexByPregunta($preguntaId)
+    {
+        return Situacio::where('pregunta', $preguntaId)->where('resposta', '<>', null)->with('pregunta', 'resposta', 'ciutat', 'seguentPregunta')->get();
+    }
+
     /**
      * Display the specified resource.
      */
@@ -44,16 +50,18 @@ class SituacioController extends Controller
         return Situacio::find($id);
     }
     /**
-    * Display the first resource with a determinated city ID
-    */
-    public function showDeCiutat(string $ciutat_id){
+     * Display the first resource with a determinated city ID
+     */
+    public function showDeCiutat(string $ciutat_id)
+    {
         $Situacions = Situacio::where('ciutat', $ciutat_id)->orderBy('created_at', 'asc')->get();
         return $Situacions;
     }
     /**
-    * Display the first resource with a determinated city ID
-    */
-    public function showPrimeraDeCiutat(string $ciutat_id){
+     * Display the first resource with a determinated city ID
+     */
+    public function showPrimeraDeCiutat(string $ciutat_id)
+    {
         $primeraSituacio = Situacio::where('ciutat', $ciutat_id)->orderBy('created_at', 'asc')->first();
         return $primeraSituacio;
     }

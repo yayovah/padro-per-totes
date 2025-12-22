@@ -93,7 +93,7 @@ Route::middleware(['auth:sanctum', RolRequest::class . ':admin'])->group(functio
     Route::post('/situacions', [SituacioController::class, 'store']);
     Route::put('/situacions/{id}', [SituacioController::class, 'update']);
     Route::delete('/situacions/{id}', [SituacioController::class, 'destroy']);
-    Route::get('/situacions/ciutat/{id}', [SituacioController::class, 'showDeCiutat']);
+    Route::get('/situacions/pregunta/{id}', [SituacioController::class, 'indexBypregunta']);
 });
 
 /*          SUPERADMIN           */
