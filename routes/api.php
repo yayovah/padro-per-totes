@@ -72,9 +72,11 @@ Route::middleware(['auth:sanctum', RolRequest::class . ':admin'])->group(functio
     Route::get('/ciutats/administrades/{id}', [CiutatController::class, 'indexAdministrades']);
 
     //Preguntes
-    Route::post('/preguntes', [PreguntaController::class, 'store']);
+    //Route::post('/preguntes', [PreguntaController::class, 'store']);
     Route::put('/preguntes/{id}', [PreguntaController::class, 'update']);
     Route::delete('/preguntes/{id}', [PreguntaController::class, 'destroy']);
+    Route::post('/preguntes/ciutat/{ciutatId}', [PreguntaController::class, 'storeByCiutat']);
+    Route::get('/preguntes/ciutat/{ciutatId}', [PreguntaController::class, 'indexByCiutat']);
 
     //Respostes
     Route::post('/respostes', [RespostaController::class, 'store']);
