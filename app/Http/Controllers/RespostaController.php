@@ -31,22 +31,11 @@ class RespostaController extends Controller
     public function storeByPregunta(Request $request, $preguntaId)
     {
         //Crear la resposta
-        $resposta = Resposta::create($request->all());
+        $resposta = Resposta::create($request->input('resposta'));
 
-        $situacio = Situacio::where('pregunta', $preguntaId)->first();
-        $ciutatId = $situacio->ciutat;
-        if ($situacio->pregunta == null) {
-            $situacio->update([
-                'resposta' => $resposta->id
-            ]);
-        } else {
-            //Crea una situació si no exitia la parella pregunta/resposta
-            $situacio = Situacio::firstOrCreate([
-                'resposta' => $resposta->id,
-                'pregunta' => $preguntaId,
-                'ciutat' => $ciutatId
-            ]);
-        }
+        $request->situacio['resposta']= $resposta->id;
+
+        $situacio = Situacio::firstOrCreate($request->input('situacio'));
 
         return response()->json(['resposta' => $resposta, 'situacio' => $situacio]);
     }
