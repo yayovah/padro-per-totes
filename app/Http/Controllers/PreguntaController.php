@@ -88,8 +88,8 @@ class PreguntaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $pregunta = Pregunta::find($id);
-        $pregunta->update($pregunta->all());
+        $pregunta = Pregunta::findOrFail($id);
+        $pregunta->update($request->all());
         return $pregunta;
     }
 

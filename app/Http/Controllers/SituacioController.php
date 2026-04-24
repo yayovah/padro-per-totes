@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Situacio;
 use App\Models\User;
 use App\Models\Ciutat;
+use App\Models\Resposta;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -30,10 +31,17 @@ class SituacioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'pregunta' => 'required',
-            'ciutat' => 'required',
+            'situacio.ciutat'   => 'required|exists:ciutats,id',
+            'situacio.pregunta' => 'required|exists:preguntes,id',
+            'situacio.seguent_pregunta' => 'required|exists:seguent_pregunta,id',
+            'resposta.contingut'=> 'required|string',
         ]);
-        return Situacio::create($request->all());
+
+        $novaResposta = Resposta::create($request->input('resposta'));
+        return Situacio::create(array_merge(
+            $request->input('situacio'), 
+            ['resposta' => $novaResposta->id]
+        ));
     }
 
 

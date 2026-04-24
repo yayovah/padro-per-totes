@@ -33,6 +33,7 @@ Route::get('/preguntes/ciutat/{id}/primera', [PreguntaController::class, 'showPr
 Route::get('/preguntes/ciutat/{id}', [PreguntaController::class, 'showDeCiutat']);
 
 //Respostes
+//Route::get('/respostes', [RespostaController::class, 'index']);
 Route::get('/respostes/{id}', [RespostaController::class, 'show']);
 
 //Itineraris

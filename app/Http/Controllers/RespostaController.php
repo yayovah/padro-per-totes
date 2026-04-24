@@ -59,8 +59,8 @@ class RespostaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $resposta = Resposta::find($id);
-        $resposta->update($resposta->all());
+        $resposta = Resposta::findOrFail($id);
+        $resposta->update($request->all());
         return $resposta;
     }
 
