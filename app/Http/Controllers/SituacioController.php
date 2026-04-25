@@ -33,15 +33,18 @@ class SituacioController extends Controller
         $request->validate([
             'situacio.ciutat'   => 'required|exists:ciutats,id',
             'situacio.pregunta' => 'required|exists:preguntes,id',
-            'situacio.seguent_pregunta' => 'required|exists:seguent_pregunta,id',
-            'resposta.contingut'=> 'required|string',
+            'situacio.seguent_pregunta' => 'required|exists:preguntes,id',
+            'resposta.text'=> 'required|string',
         ]);
 
         $novaResposta = Resposta::create($request->input('resposta'));
-        return Situacio::create(array_merge(
+        $novaSituacio = Situacio::create(array_merge(
             $request->input('situacio'), 
             ['resposta' => $novaResposta->id]
         ));
+
+        //retornem la situació amb els elements complets
+        return $novaSituacio->load('pregunta', 'resposta', 'ciutat', 'seguentPregunta');
     }
 
 
