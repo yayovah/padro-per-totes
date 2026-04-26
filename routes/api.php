@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CiutatController;
 use App\Http\Controllers\ImatgeController;
 use App\Http\Controllers\ItinerariController;
+use App\Http\Controllers\ItinerariPdfController;
 use App\Http\Controllers\PasController;
 use App\Http\Controllers\PermisController;
 use App\Http\Controllers\PreguntaController;
@@ -51,6 +52,12 @@ Route::delete('/passos/{id}', [pasController::class, 'destroy']);
 Route::get('/situacions/{id}', [SituacioController::class, 'show']);
 Route::get('/situacions/ciutat/{id}/primera', [SituacioController::class, 'showPrimeraDeCiutat']);
 Route::get('/situacions/pregunta/{id}', [SituacioController::class, 'indexBypregunta']);
+
+//PDF
+//barryvdh/laravel-dompdf
+//composer require barryvdh/laravel-dompdf
+ROUTE::get('/itinerariPdf/{id}', [ItinerariPdfController::class, 'descarregaPdf']);
+
 
 /* ---------------------------------------------------------------------
 PROTECTED ROUTES
