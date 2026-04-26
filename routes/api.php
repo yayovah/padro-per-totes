@@ -50,6 +50,7 @@ Route::delete('/passos/{id}', [pasController::class, 'destroy']);
 //Situacions
 Route::get('/situacions/{id}', [SituacioController::class, 'show']);
 Route::get('/situacions/ciutat/{id}/primera', [SituacioController::class, 'showPrimeraDeCiutat']);
+Route::get('/situacions/pregunta/{id}', [SituacioController::class, 'indexBypregunta']);
 
 /* ---------------------------------------------------------------------
 PROTECTED ROUTES
@@ -94,7 +95,7 @@ Route::middleware(['auth:sanctum', RolRequest::class . ':admin'])->group(functio
     Route::post('/situacions', [SituacioController::class, 'store']);
     Route::put('/situacions/{id}', [SituacioController::class, 'update']);
     Route::delete('/situacions/{id}', [SituacioController::class, 'destroy']);
-    Route::get('/situacions/pregunta/{id}', [SituacioController::class, 'indexBypregunta']);
+
 });
 
 /*          SUPERADMIN           */
