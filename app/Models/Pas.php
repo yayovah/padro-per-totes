@@ -12,10 +12,10 @@ class Pas extends Model
     public function itinerari(){
         return $this->belongsTo(Itinerari::class, 'itinerari'); //Cada itinerari es relaciona amb només una ciutat
     }
-    public function pregunta(){
+    public function relPregunta(){
         return $this->belongsTo(Pregunta::class, 'pregunta'); //Cada itinerari es relaciona amb només una ciutat
     }
-    public function resposta(){
+    public function relResposta(){
         return $this->belongsTo(Resposta::class, 'resposta'); //Cada itinerari es relaciona amb només una ciutat
     }
 }

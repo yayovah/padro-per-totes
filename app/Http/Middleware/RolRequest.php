@@ -24,11 +24,6 @@ class RolRequest
             Log::channel('dev')->info("User:{$request->user()} - {$request->fullUrl()} - 403 ERROR"); 
             abort(403, 'Unauthorized');
         }
-
-     /*   if($request->user()->rol !== $rol){
-            Log::info("User:{$request->user()} - {$request->fullUrl()} - 403 ERROR"); 
-            abort (403);
-       }*/
         return $next($request);
     }
 }

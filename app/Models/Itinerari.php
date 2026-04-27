@@ -11,10 +11,9 @@ class Itinerari extends Model
     public function user(){
         return $this->belongsTo(User::class, 'usuaria'); //Cada itinerari es relaciona amb només un user
     }
-    public function ciutat(){
+    public function relCiutat(){
         return $this->belongsTo(Ciutat::class, 'ciutat'); //Cada itinerari es relaciona amb només una ciutat
     }
-
     public function passos(){
         return $this->hasMany(Pas::class, 'itinerari');
     }

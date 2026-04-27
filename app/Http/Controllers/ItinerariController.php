@@ -22,7 +22,6 @@ class ItinerariController extends Controller
     {
         $request->validate([
             'ciutat' => 'required',
-            'usuaria' => 'required',
         ]);
         //Es crea un nou itinerari
         return Itinerari::create($request->all());
