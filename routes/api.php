@@ -20,7 +20,7 @@ Rutes públiques, a les que es pot accedir sense requisits prèvis
 */
 
 //Users
-Route::post('register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 //Ciutats
