@@ -53,6 +53,10 @@ Route::get('/situacions/{id}', [SituacioController::class, 'show']);
 Route::get('/situacions/ciutat/{id}/primera', [SituacioController::class, 'showPrimeraDeCiutat']);
 Route::get('/situacions/pregunta/{id}', [SituacioController::class, 'indexBypregunta']);
 
+//Imatges
+Route::get('/imatges', [ImatgeController::class, 'index']);
+Route::get('/imatges/{id}', [ImatgeController::class, 'show']);
+
 //PDF
 //barryvdh/laravel-dompdf
 //composer require barryvdh/laravel-dompdf

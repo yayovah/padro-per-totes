@@ -18,4 +18,7 @@ class Pregunta extends Model
     public function situacionsSeguent(){
         return $this->hasMany(Situacio::class, 'seguent_pregunta');
     }
+    public function imtgeVinculada(){
+        return $this->belongTo(Imatge::class, 'imatge');
+    }
 }
