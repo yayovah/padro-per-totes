@@ -12,7 +12,7 @@ class itinerariPdfController extends Controller
     public function descarregaPDF($id){
         $itinerari = Itinerari::with(['relCiutat', 'passos.relPregunta', 'passos.relResposta'])
                             ->findOrFail($id);
-        $pdf = Pdf::loadView('itinerariPdf', compact('itinerari'));
+        $pdf = Pdf::loadView('itineraripdf', compact('itinerari'));
         return $pdf->download('itinerario.pdf');
     }
 }
