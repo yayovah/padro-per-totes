@@ -29,12 +29,12 @@
         }
 
     .o-badge{
-        color: #9F9F9F;
+        color: #404040;
         padding: 0px 8px 2px 8px;
         text-align: center;
         border-radius: 16px;
         background: #FFE1F3;
-        width: 90px;
+        width: 95px;
         
     }
 
@@ -62,7 +62,8 @@
         <div class="pas">
             <table>
                 <tr>
-                    <td colspan=2><p>
+                    <td class="minim-td"><div class="o-badge">Explicación<div></td>
+                    <td class="expand-td"><p>
                         {!! \Illuminate\Support\Str::markdown($pas->relPregunta->text) !!}</p></td>
                 </tr>
                 <tr>
