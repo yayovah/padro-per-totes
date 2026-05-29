@@ -66,10 +66,11 @@
                         {!! \Illuminate\Support\Str::markdown($pas->relPregunta->text) !!}</p></td>
                 </tr>
                 <tr>
-                    <td class="minim-td" rowspan=2><div class="o-badge">Pregunta {{ $loop->iteration }}<div></td>
+                    <td class="minim-td"><div class="o-badge">Pregunta {{ $loop->iteration }}<div></td>
                     <td class="expand-td"><h3>{{ $pas->relPregunta->titol }}</h3></td>
                 </tr>
                 <tr>
+                    <td class="minim-td"><div class="o-badge">Respuesta {{ $loop->iteration }}<div></td>
                     <td class="expand-td">    <p>{{ $pas->relResposta->text ?? '' }} </p></td>
                 </tr>
         </div>
