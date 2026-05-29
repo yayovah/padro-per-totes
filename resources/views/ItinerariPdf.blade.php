@@ -69,7 +69,7 @@
                     <td class="expand-td"><h3>{{ $pas->relPregunta->titol }}</h3></td>
                 </tr>
                 <tr>
-                    <td class="expand-td">    <p>{{ $pas->relResposta->text ?? '' }}</p></td>
+                    <td class="expand-td">    <p>{{ $pas->relResposta->text ?? '' }} </p></td>
                 </tr>
         </div>
         @endforeach
