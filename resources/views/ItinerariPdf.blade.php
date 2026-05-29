@@ -62,10 +62,11 @@
         <div class="pas">
             <table>
                 <tr>
-                    <td colspan=2><p>{{ $pas->relPregunta->text }}</p></td>
+                    <td colspan=2><p>
+                        {!! \Illuminate\Support\Str::markdown($pas->relPregunta->text) !!}</p></td>
                 </tr>
                 <tr>
-                    <td class="minim-td" rowspan=2><div class="o-badge">Pregunta<div></td>
+                    <td class="minim-td" rowspan=2><div class="o-badge">Pregunta {{ $loop->iteration }}<div></td>
                     <td class="expand-td"><h3>{{ $pas->relPregunta->titol }}</h3></td>
                 </tr>
                 <tr>
