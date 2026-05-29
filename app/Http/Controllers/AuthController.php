@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Itinerari;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -28,6 +29,36 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('pptToken')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);
+    }
+
+    public function userRegister(Request $request, string $itinerariId): Response
+    {
+        $fields = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|unique:users,email',
+            'password' => 'required|string|confirmed'        ]);
+
+        $rol = 'user';
+
+        $user = User::create([
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'password' => bcrypt($fields['password']),
+            'rol' => $rol
+        ]);
+
+        $token = $user->createToken('pptToken')->plainTextToken;
+
+        $itinerari = Itinerari::findOrFail($itinerariId);
+        $itinerari->usuaria = $user->id;
+        $itinerari->save();
 
         $response = [
             'user' => $user,

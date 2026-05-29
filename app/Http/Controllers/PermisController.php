@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Permis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PermisController extends Controller
 {
@@ -28,6 +29,8 @@ class PermisController extends Controller
             'usuaria' => $request->usuaria,
             'ciutat' => $request->ciutat
         ]);
+        $permis->load('user');
+        Log::channel('dev')->info("el permis -> {{$permis}}");
         return response()->json($permis);
     }
 

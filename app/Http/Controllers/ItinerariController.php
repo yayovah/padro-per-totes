@@ -41,9 +41,22 @@ class ItinerariController extends Controller
     public function update(Request $request, string $id)
     {
         $itinerari = Itinerari::find($id);
-        $itinerari->update($itinerari->all());
+        $itinerari->update($request->all());
         return $itinerari;
     }
+
+    /**
+     * Display resource from user ID
+     */
+    public function getByUser(string $id)
+    {
+        $itinerari = Itinerari::where('usuaria', $id)
+        ->with(['passos.relPregunta', 'passos.relResposta', 'relCiutat'])
+        ->firstOrFail();
+
+        return response()->json($itinerari);
+    }
+
 
     /**
      * Remove the specified resource from storage.

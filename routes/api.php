@@ -21,6 +21,7 @@ Rutes públiques, a les que es pot accedir sense requisits prèvis
 
 //Users
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/userRegister/itinerari/{id}', [AuthController::class, 'userRegister']);
 Route::post('login', [AuthController::class, 'login']);
 
 //Ciutats
@@ -39,6 +40,7 @@ Route::get('/respostes/{id}', [RespostaController::class, 'show']);
 
 //Itineraris
 Route::get('/itineraris/{id}', [ItinerariController::class, 'show']);
+Route::get('/itineraris/user/{id}', [ItinerariController::class, 'getByUser']);
 Route::post('/itineraris', [ItinerariController::class, 'store']);
 
 //Passos

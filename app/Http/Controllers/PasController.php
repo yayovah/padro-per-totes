@@ -23,7 +23,7 @@ class PasController extends Controller
         $request->validate([
             'itinerari' => 'required',
             'pregunta' => 'required',
-            'resposta' => 'required',
+//          'resposta' => 'required', 
         ]);
         return Pas::create($request->all());
     }
