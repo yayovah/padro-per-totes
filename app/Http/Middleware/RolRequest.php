@@ -9,14 +9,10 @@ use Illuminate\Support\Facades\Log;
 
 class RolRequest
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
+    // Middleware per verificar que l'usuari té un rol permès per accedir a la ruta
     public function handle(Request $request, Closure $next, $rols): Response
     {
-        Log::channel('dev')->info("{$request->method()} - {$request->fullUrl()}"); 
+        Log::channel('dev')->info("{$request->method()} - {$request->fullUrl()}"); //Guardem un log
         $allowedRoles = explode('|', $rols);
 
         // Si l'usuari no té un rol permès, aborta

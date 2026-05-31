@@ -47,7 +47,7 @@ class SituacioController extends Controller
         return $novaSituacio->load('pregunta', 'resposta', 'ciutat', 'seguentPregunta');
     }
 
-
+    //Funció per obtenir les situacions associades a una pregunta
     public function indexByPregunta($preguntaId)
     {
         return Situacio::where('pregunta', $preguntaId)->where('resposta', '<>', null)->with('pregunta', 'resposta', 'ciutat', 'seguentPregunta')->get();
@@ -60,17 +60,15 @@ class SituacioController extends Controller
     {
         return Situacio::find($id);
     }
-    /**
-     * Display the first resource with a determinated city ID
-     */
+
+    //Funció per obtenir les situacions associades a una ciutat
     public function showDeCiutat(string $ciutat_id)
     {
         $Situacions = Situacio::where('ciutat', $ciutat_id)->orderBy('created_at', 'asc')->get();
         return $Situacions;
     }
-    /**
-     * Display the first resource with a determinated city ID
-     */
+
+    //Funció per obtenir la primera situació associada a una ciutat, ordenada per data de creació
     public function showPrimeraDeCiutat(string $ciutat_id)
     {
         $primeraSituacio = Situacio::where('ciutat', $ciutat_id)->orderBy('created_at', 'asc')->first();

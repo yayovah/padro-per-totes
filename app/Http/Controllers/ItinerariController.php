@@ -45,12 +45,11 @@ class ItinerariController extends Controller
         return $itinerari;
     }
 
-    /**
-     * Display resource from user ID
-     */
+    //Funció per obtenir l'itinerari associat a un usuari, amb les relacions de passos, preguntes, respostes i ciutat
     public function getByUser(string $id)
     {
         $itinerari = Itinerari::where('usuaria', $id)
+        //Carreguem les relacions
         ->with(['passos.relPregunta', 'passos.relResposta', 'relCiutat'])
         ->firstOrFail();
 

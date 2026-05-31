@@ -28,18 +28,21 @@ class RespostaController extends Controller
         return Resposta::create($request->all());
     }
 
+    //Funció per crear una resposta i associar-la a una pregunta mitjançant la situació
     public function storeByPregunta(Request $request, $preguntaId)
     {
         //Crear la resposta
         $resposta = Resposta::create($request->input('resposta'));
 
+        //Crea la situació associant la resposta a la pregunta
         $request->situacio['resposta']= $resposta->id;
-
         $situacio = Situacio::firstOrCreate($request->input('situacio'));
 
+        //Retornem la resposta i la situació associada
         return response()->json(['resposta' => $resposta, 'situacio' => $situacio]);
     }
 
+    //Funció per obtenir totes les respostes associades a una pregunta
     public function indexByPregunta($preguntaId)
     {
         $respostes = Situacio::where('pregunta', $preguntaId)->with('resposta')->get()->pluck('resposta');

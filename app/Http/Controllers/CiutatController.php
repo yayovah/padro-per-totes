@@ -34,9 +34,7 @@ class CiutatController extends Controller
         return Ciutat::whereIn('id', $ciutatsAdmin)->get();
     }
 
-    /**
-     * Display a listing of the ciutat's administrators
-     */
+    // Funció per obtenir el llistat d'administradors d'una ciutat
     public function indexAdmins(string $id)
     {
         $ciutat = Ciutat::find($id);
@@ -44,7 +42,7 @@ class CiutatController extends Controller
         return User::whereIn('id', $adminsCiutat)->get();
     }
 
-
+    // Funció per eliminar un administrador d'una ciutat
     public function deleteAdmin(string $ciutatId, string $adminId)
     {
         return Permis::where('usuaria', $adminId)->where('ciutat', $ciutatId)->delete();
